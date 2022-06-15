@@ -19,13 +19,6 @@ async def on_started(event):
 async def ping(ctx):
     await ctx.respond('Pong!')
 
-@bot.command
-@lightbulb.option('x', 'The first number', type=float)
-@lightbulb.option('y', 'The second number', type=float)
-@lightbulb.command('add', 'Add two numbers together')
-@lightbulb.implements(lightbulb.SlashCommand)
-async def add(ctx):
-    await ctx.respond(ctx.options.x + ctx.options.y)
 
 @bot.command
 @lightbulb.add_checks(lightbulb.owner_only)
@@ -33,6 +26,7 @@ async def add(ctx):
 @lightbulb.implements(lightbulb.SlashCommand)
 async def foo(ctx):
     await ctx.respond("You are the owner of this bot.")
+    
 
 @bot.command
 @lightbulb.command('my_group', 'This is a group')
@@ -46,4 +40,5 @@ async def my_group(ctx):
 async def subcommand(ctx):
     await ctx.respond('I am a subcommand!')
 
+bot.load_extensions_from('./extensions')
 bot.run()
