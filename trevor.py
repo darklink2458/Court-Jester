@@ -5,7 +5,7 @@ import lightbulb
 
 #bot = lightbulb.BotApp(token=my_secret)
 bot = lightbulb.BotApp(
-    token="OTQ0ODQwMDk3OTQ4MzkzNTAy.YhHc6Q.0LZoNE3Ds0f26f_r_CUahydW0mo",
+    token="",
     default_enabled_guilds=(788564875658919947)
 )
 
