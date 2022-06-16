@@ -1,4 +1,4 @@
-from ast import Str
+
 import os
 import hikari
 import lightbulb
@@ -7,9 +7,6 @@ from dotenv import load_dotenv
 load_dotenv()
 my_secret = os.getenv("TOKEN")
 
-print(my_secret)
-
-#bot = lightbulb.BotApp(token=my_secret)
 bot = lightbulb.BotApp(
     token=my_secret,
     default_enabled_guilds=(788564875658919947)
