@@ -1,9 +1,48 @@
 import hikari
-import random
 import lightbulb
+import pylunar
+from datetime import datetime
+import json
+import requests
+import random
 
 plugin = lightbulb.Plugin(name="Misc")
 
+#Command to get an 8ball answer
+@plugin.command
+@lightbulb.command('8ball', 'Get an 8ball answer')
+@lightbulb.implements(lightbulb.SlashCommand)
+async def eightball(ctx):
+    answers = [
+        "It is certain.", "It is decidedly so.", "Without a doubt.",
+        "Yes - definitely.", "You may rely on it.", "As I see it, yes.",
+        "Most likely.", "Outlook good.", "Yes.", "Signs point to yes.", 
+        "Reply hazy, try again.", "Ask again later.",
+        "Better not tell you now.", "Cannot predict now.",
+        "Concentrate and ask again.", "Don't count on it.", "My reply is no.", 
+        "My sources say no.", "Outlook not so good.","Very doubtful."
+    ]
+    await ctx.respond(random.choice(answers))
+
+
+#Command to get an inspirational quote
+@plugin.command
+@lightbulb.command('inspire', 'Get an inspirational quote')
+@lightbulb.implements(lightbulb.SlashCommand)
+async def inspire(ctx):
+    response = requests.get("https://zenquotes.io/api/random")
+    json_data = json.loads(response.text)
+    quote = json_data[0]['q'] + ' -' + json_data[0]['a']
+    await ctx.respond(quote)
+
+#Command to give the phase of the moon in Seattle
+@plugin.command
+@lightbulb.command('moon', 'Get the phase of the moon in Seattle')
+@lightbulb.implements(lightbulb.SlashCommand)
+async def moon(ctx):
+    mi = pylunar.MoonInfo((47, 62, 49), (-112, 52, 10))
+    mi.update(datetime.now())
+    await ctx.respond('Moon Phase: ' + mi.phase_name().replace('_',' ') + f'\nPercentage: {round(mi.fractional_phase()*100,2)}%')
 
 #Command to play a game of rock paper scissors
 @plugin.command
@@ -31,6 +70,7 @@ async def rps(ctx):
         else:
             await ctx.respond('You lose!\nYou: ' + choices[selection] + '\nJester: ' + choices[jester])
 
+#Command to uwuify a string
 @plugin.command
 @lightbulb.option('msg', 'message to be modified', type=str)
 @lightbulb.command('uwu', 'UWUify a message')
@@ -49,6 +89,7 @@ async def uwu(ctx):
     msg = msg.replace('MO', 'MYO')
     await ctx.respond(msg)
 
+#Command to absolutely butcher a string
 @plugin.command
 @lightbulb.option('msg', 'message to be modified', type=str)
 @lightbulb.command('why', 'turn your message into an abomination')

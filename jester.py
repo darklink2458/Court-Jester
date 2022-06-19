@@ -1,4 +1,3 @@
-
 import os
 import hikari
 import lightbulb
@@ -16,12 +15,6 @@ bot = lightbulb.BotApp(
 async def on_started(event):
     print("Bot is online!")
 
-@bot.command
-@lightbulb.command('ping', 'Says pong!')
-@lightbulb.implements(lightbulb.SlashCommand)
-async def ping(ctx):
-    await ctx.respond('Pong!')
-
 
 @bot.command
 @lightbulb.add_checks(lightbulb.owner_only)
@@ -32,16 +25,31 @@ async def foo(ctx):
     
 
 @bot.command
-@lightbulb.command('my_group', 'This is a group')
+@lightbulb.command('information', 'Basic information about the bot and its author')
 @lightbulb.implements(lightbulb.SlashCommandGroup)
-async def my_group(ctx):
+async def info_group(ctx):
     pass
 
-@my_group.child
-@lightbulb.command('subcommand', 'This is a subcommand')
+#Command that says hello to Jester's author
+@info_group.child
+@lightbulb.command('owner', "Pings Jester's owner")
 @lightbulb.implements(lightbulb.SlashSubCommand)
 async def subcommand(ctx):
-    await ctx.respond('I am a subcommand!')
+    await ctx.respond('Hi <@271347480291966977>!')
+
+#Command that links to Jester's GitHub Repository
+@info_group.child
+@lightbulb.command('github', "Links to Jester's GitHub Repository")
+@lightbulb.implements(lightbulb.SlashSubCommand)
+async def subcommand(ctx):
+    await ctx.respond('https://github.com/darklink2458/Court-Jester')
+
+#Command that sends a ping to Jester
+@info_group.child
+@lightbulb.command('ping', 'pings Jester')
+@lightbulb.implements(lightbulb.SlashSubCommand)
+async def ping(ctx):
+    await ctx.respond('Pong!')
 
 bot.load_extensions_from('./extensions')
 bot.run()
