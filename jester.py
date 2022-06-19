@@ -14,7 +14,7 @@ bot = lightbulb.BotApp(
 
 @bot.listen(hikari.StartedEvent)
 async def on_started(event):
-    print("Hello World!")
+    print("Bot is online!")
 
 @bot.command
 @lightbulb.command('ping', 'Says pong!')
