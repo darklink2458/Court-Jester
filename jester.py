@@ -51,5 +51,6 @@ async def subcommand(ctx):
 async def ping(ctx):
     await ctx.respond('Pong!')
 
+
 bot.load_extensions_from('./extensions')
 bot.run()
